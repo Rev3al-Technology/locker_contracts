@@ -81,10 +81,10 @@ contract Rev3al_Locker is ReentrancyGuard {
     mapping(address => uint128) public totalLocked;
 
     /** EMERGENCY WITHDRAWAL 
-    * Users requiring early token withdrawal can notify the contract.
-    * Proof of their community announcement regarding the intent to withdraw off-chain is mandatory.
-    * Upon contract notification, we will initiate the transfer of locked tokens to their address.
-    */
+     * Users requiring early token withdrawal can notify the contract.
+     * Proof of their community announcement regarding the intent to withdraw off-chain is mandatory.
+     * Upon contract notification, we will initiate the transfer of locked tokens to their address.
+     */
     mapping(uint128 => uint8) public pinged;
 
     /** Events */
@@ -386,9 +386,9 @@ contract Rev3al_Locker is ReentrancyGuard {
     /** Internal functions */
 
     /**
-    * IMPORTED FROM: https://github.com/Vectorized/solady/blob/main/src/utils/SafeTransferLib.sol
-    * NO ADDITIONAL EDITS HAVE BEEN MADE
-    */
+     * IMPORTED FROM: https://github.com/Vectorized/solady/blob/main/src/utils/SafeTransferLib.sol
+     * NO ADDITIONAL EDITS HAVE BEEN MADE
+     */
     function safeTransferFrom(address token, address from, address to, uint256 amount) internal {
         /// @solidity memory-safe-assembly
         assembly {
@@ -413,9 +413,9 @@ contract Rev3al_Locker is ReentrancyGuard {
     }
 
     /**
-    * IMPORTED FROM: https://github.com/Vectorized/solady/blob/main/src/utils/SafeTransferLib.sol
-    * NO ADDITIONAL EDITS HAVE BEEN MADE
-    */
+     * IMPORTED FROM: https://github.com/Vectorized/solady/blob/main/src/utils/SafeTransferLib.sol
+     * NO ADDITIONAL EDITS HAVE BEEN MADE
+     */
     function safeTransfer(address token, address to, uint256 amount) internal {
         /// @solidity memory-safe-assembly
         assembly {
@@ -437,9 +437,9 @@ contract Rev3al_Locker is ReentrancyGuard {
     }
 
     /**
-    * IMPORTED FROM: https://github.com/Vectorized/solady/blob/main/src/utils/SafeTransferLib.sol
-    * NO ADDITIONAL EDITS HAVE BEEN MADE
-    */
+     * IMPORTED FROM: https://github.com/Vectorized/solady/blob/main/src/utils/SafeTransferLib.sol
+     * NO ADDITIONAL EDITS HAVE BEEN MADE
+     */
     /// @dev Sends all the ETH in the current contract to `to`.
     function safeTransferAllETH(address to) internal {
         /// @solidity memory-safe-assembly
