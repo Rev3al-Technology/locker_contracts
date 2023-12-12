@@ -33,7 +33,7 @@ contract Rev3al_Locker is ReentrancyGuard {
          * (uint128 + uint128 = 128 + 128 = 256 bits = 32 bytes) out of 32.
          */
         uint128 amount; // Slot z | Max value: uint128(-1) = 340282366920938463463374607431768211455 = 340,282,366,920,938,463,463 eth
-        uint128 locked; // Slot z | 1 - Locked AND 2 - Unlocked | Max value: uint128(-1) = 340282366920938463463374607431768211455 = 340,282,366,920,938,463,463 eth
+        uint128 locked; // Slot z | 1 - Locked AND 0 - Unlocked | Max value: uint128(-1) = 340282366920938463463374607431768211455 = 340,282,366,920,938,463,463 eth
 
         address owner; // 160 bits = 20 bytes
     }
@@ -77,6 +77,7 @@ contract Rev3al_Locker is ReentrancyGuard {
     error NotOwner();
     error FeeNotPaid();
     error CantUnlock();
+    error OutOfRange();
     error InvalidAmount();
     error InvalidAddress();
     error ContractPaused();
@@ -157,6 +158,10 @@ contract Rev3al_Locker is ReentrancyGuard {
     }
 
     function withdrawFromPinged(uint128 _lockId, address _receiver) external payable onlyOwner {
+        if(_lockId >= lockId) {
+            revert OutOfRange();
+        }
+        
         if(pinged[_lockId] == 0) {
             revert CantUnlock();
         }
@@ -261,6 +266,10 @@ contract Rev3al_Locker is ReentrancyGuard {
     }
 
     function unlock(uint128 _lockId) external payable isPaused nonReentrant {
+        if(_lockId >= lockId) {
+            revert OutOfRange();
+        }
+
         LockInfo storage _lock = locks[_lockId];
 
         if(_lock.locked != 1) {
@@ -282,7 +291,7 @@ contract Rev3al_Locker is ReentrancyGuard {
         uint128 _amount = _lock.amount;
 
         _lock.amount = 0;
-        _lock.locked = 2;
+        _lock.locked = 0;
 
         safeTransfer(_lock.token, msg.sender, _amount);
 
@@ -294,6 +303,10 @@ contract Rev3al_Locker is ReentrancyGuard {
     }
 
     function pingContract(uint128 _lockId) external payable {
+        if(_lockId >= lockId) {
+            revert OutOfRange();
+        }
+
         // We read from storag instead of memory because it's cheaper
         // Read from storage => direct read
         // Read from memory => read from storage + copy to memory
