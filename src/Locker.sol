@@ -6,9 +6,9 @@ import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract Rev3al_Locker is ReentrancyGuard {
     /**
-     * Packing variables in a single slot to reduce gas costs
+     * 'paused' and 'owner' can be packed in a single slot
+     * (uint64 + address = 64 + 160 = 224 bits = 28 bytes) out of 32.
      */
-
     uint64 private paused; // Slot v | 1 = paused AND 2 = unpaused
     address private owner; // Slot v
 
