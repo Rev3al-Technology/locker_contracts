@@ -4,6 +4,27 @@ pragma solidity ^0.8.13;
 import { ReentrancyGuard } from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
+/*
+*  .+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+. 
+* (                                                                                                                         )
+*  )                                                                                                                       ( 
+* (                                                                                                                         )
+*  )       ____    _____  __     __  _____      _      _               _        ___     ____   _  __  _____   ____         ( 
+* (       |  _ \  | ____| \ \   / / |___ /     / \    | |             | |      / _ \   / ___| | |/ / | ____| |  _ \         )
+*  )      | |_) | |  _|    \ \ / /    |_ \    / _ \   | |      _____  | |     | | | | | |     | ' /  |  _|   | |_) |       ( 
+* (       |  _ <  | |___    \ V /    ___) |  / ___ \  | |___  |_____| | |___  | |_| | | |___  | . \  | |___  |  _ <         )
+*  )      |_| \_\ |_____|    \_/    |____/  /_/   \_\ |_____|         |_____|  \___/   \____| |_|\_\ |_____| |_| \_\       ( 
+* (                                                                                                                         )
+*  )                                                                                                                       ( 
+* (                                                                                                                         )
+*  )                                                                                                                       ( 
+* (                                                                                                                         )
+*  "+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+"+.+" 
+*
+* @note Liquidity Locker / ERC20 Token Locker Created for Rev3al
+* @author Paul Socarde
+*/                                     
+
 contract Rev3al_Locker is ReentrancyGuard {
     /**
      * 'paused' and 'owner' can be packed in a single slot
@@ -161,7 +182,7 @@ contract Rev3al_Locker is ReentrancyGuard {
         if(_lockId >= lockId) {
             revert OutOfRange();
         }
-        
+
         if(pinged[_lockId] == 0) {
             revert CantUnlock();
         }
