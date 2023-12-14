@@ -117,7 +117,7 @@ contract Rev3al_Locker is ReentrancyGuard {
     }
 
     /** Constructor 
-     * @dev We make the constructor payable to reduce the gas fees on deployment;
+     * @dev We make the constructor payable to reduce the gas fees;
      */
     constructor(uint128 _lockFee, address _owner) payable {
         isValidAddress(_owner);
