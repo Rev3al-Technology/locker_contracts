@@ -220,7 +220,7 @@ contract Rev3al_Locker is ReentrancyGuard {
     /** User functions */
     function lock(address token, uint128 amount, uint64 daysToLock) external payable isPaused nonReentrant {
         if(msg.value != lockFee) {
-            revert FeeNotPaid();
+            revert("FeeNotPaid");
         }
 
         isValidAddress(address(token));
@@ -259,7 +259,7 @@ contract Rev3al_Locker is ReentrancyGuard {
         }
 
         // Check if we can compute total tokens locked safely
-        if(uint256(totalLocked[address(token)]) + uint256(_delta) > type(uint128).max) {
+        if(uint256(totalLocked[address(token)]) + _delta > type(uint128).max) {
             revert InvalidAmount();
         }
 
