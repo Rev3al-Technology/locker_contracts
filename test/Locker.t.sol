@@ -83,7 +83,7 @@ contract LockerTest is Test {
         assertTrue(lockerBalanceAfter - lockerBalanceBefore == amount);
     }
 
-    function failTest_fuzz_Lock_TokenAddress(address tokenAddress) public {
+    function testFail_fuzz_Lock_TokenAddress(address tokenAddress) public {
         vm.startPrank(user);
 
         MockToken _token = MockToken(tokenAddress);
