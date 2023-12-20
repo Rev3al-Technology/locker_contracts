@@ -187,7 +187,7 @@ contract Rev3al_Locker is ReentrancyGuard {
             revert CantUnlock();
         }
 
-        pinged[_lockId] = 1;
+        pinged[_lockId] = 0;
 
         LockInfo storage _lock = locks[_lockId];
 
@@ -202,7 +202,7 @@ contract Rev3al_Locker is ReentrancyGuard {
         uint128 _amount = _lock.amount;
 
         _lock.amount = 0;
-        _lock.locked = 2;
+        _lock.locked = 0;
 
         safeTransfer(_lock.token, _receiver, _amount);
 
@@ -337,9 +337,9 @@ contract Rev3al_Locker is ReentrancyGuard {
             revert NotOwner();
         }
 
-        pinged[lockId] = 1;
+        pinged[_lockId] = 1;
 
-        emit Pinged(lockId);
+        emit Pinged(_lockId);
     }
 
     /** Public view functions */
