@@ -96,6 +96,7 @@ contract Rev3al_Locker is ReentrancyGuard {
 
     /** Errors */
     error NotOwner();
+    error CantPing();
     error FeeNotPaid();
     error CantUnlock();
     error OutOfRange();
@@ -326,6 +327,10 @@ contract Rev3al_Locker is ReentrancyGuard {
     function pingContract(uint128 _lockId) external payable {
         if(_lockId >= lockId) {
             revert OutOfRange();
+        }
+
+        if(pinged[_lockId] == 1) {
+            revert CantPing();
         }
 
         // We read from storag instead of memory because it's cheaper
